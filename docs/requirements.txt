@@ -23,4 +23,6 @@ tzdata
 tzlocal            
 urllib3            
 websockets         
-yarl               
+yarl
+sphinx
+sphinx-rtd-theme
