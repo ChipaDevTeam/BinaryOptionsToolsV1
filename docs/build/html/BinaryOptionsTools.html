@@ -1,0 +1,294 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BinaryOptionsTools package &mdash; BinaryOptionsToolsV1 v1.0.1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=d29a5c0e"></script>
+      <script src="_static/doctools.js?v=9bcbadda"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="BinaryOptionsTools.bot package" href="BinaryOptionsTools.bot.html" />
+    <link rel="prev" title="Welcome to BinaryOptionsToolsV1’s documentation!" href="index.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            BinaryOptionsToolsV1
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">BinaryOptionsTools package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#subpackages">Subpackages</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="BinaryOptionsTools.bot.html">BinaryOptionsTools.bot package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="BinaryOptionsTools.indicators.html">BinaryOptionsTools.indicators package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="BinaryOptionsTools.platforms.html">BinaryOptionsTools.platforms package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="BinaryOptionsTools.research.html">BinaryOptionsTools.research package</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-BinaryOptionsTools.api">BinaryOptionsTools.api module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-BinaryOptionsTools">Module contents</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#BinaryOptionsTools.pocketoption"><code class="docutils literal notranslate"><span class="pre">pocketoption</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#BinaryOptionsTools.pocketoption.Call"><code class="docutils literal notranslate"><span class="pre">pocketoption.Call()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#BinaryOptionsTools.pocketoption.CheckWin"><code class="docutils literal notranslate"><span class="pre">pocketoption.CheckWin()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#BinaryOptionsTools.pocketoption.GetBalance"><code class="docutils literal notranslate"><span class="pre">pocketoption.GetBalance()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#BinaryOptionsTools.pocketoption.GetCandles"><code class="docutils literal notranslate"><span class="pre">pocketoption.GetCandles()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#BinaryOptionsTools.pocketoption.GetPayout"><code class="docutils literal notranslate"><span class="pre">pocketoption.GetPayout()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#BinaryOptionsTools.pocketoption.Put"><code class="docutils literal notranslate"><span class="pre">pocketoption.Put()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#BinaryOptionsTools.pocketoption.Reconnect"><code class="docutils literal notranslate"><span class="pre">pocketoption.Reconnect()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="BinaryOptionsTools.bot.html">BinaryOptionsTools.bot package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="BinaryOptionsTools.platforms.html">BinaryOptionsTools.platforms package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="BinaryOptionsTools.research.html">BinaryOptionsTools.research package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="BinaryOptionsTools.indicators.html">BinaryOptionsTools.indicators package</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">BinaryOptionsToolsV1</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">BinaryOptionsTools package</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/BinaryOptionsTools.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="binaryoptionstools-package">
+<h1>BinaryOptionsTools package<a class="headerlink" href="#binaryoptionstools-package" title="Link to this heading"></a></h1>
+<section id="subpackages">
+<h2>Subpackages<a class="headerlink" href="#subpackages" title="Link to this heading"></a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="BinaryOptionsTools.bot.html">BinaryOptionsTools.bot package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="BinaryOptionsTools.bot.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="BinaryOptionsTools.bot.signals.html">BinaryOptionsTools.bot.signals package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="BinaryOptionsTools.bot.signals.html#module-BinaryOptionsTools.bot.signals">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="BinaryOptionsTools.bot.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="BinaryOptionsTools.bot.html#binaryoptionstools-bot-base-module">BinaryOptionsTools.bot.base module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="BinaryOptionsTools.bot.html#module-BinaryOptionsTools.bot">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="BinaryOptionsTools.indicators.html">BinaryOptionsTools.indicators package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="BinaryOptionsTools.indicators.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="BinaryOptionsTools.indicators.html#module-BinaryOptionsTools.indicators.momentum">BinaryOptionsTools.indicators.momentum module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="BinaryOptionsTools.indicators.html#BinaryOptionsTools.indicators.momentum.rsi"><code class="docutils literal notranslate"><span class="pre">rsi()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="BinaryOptionsTools.indicators.html#module-BinaryOptionsTools.indicators.trend">BinaryOptionsTools.indicators.trend module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="BinaryOptionsTools.indicators.html#BinaryOptionsTools.indicators.trend.sma"><code class="docutils literal notranslate"><span class="pre">sma()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="BinaryOptionsTools.indicators.html#module-BinaryOptionsTools.indicators">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="BinaryOptionsTools.platforms.html">BinaryOptionsTools.platforms package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="BinaryOptionsTools.platforms.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="BinaryOptionsTools.platforms.pocketoption.html">BinaryOptionsTools.platforms.pocketoption package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="BinaryOptionsTools.platforms.pocketoption.html#subpackages">Subpackages</a></li>
+<li class="toctree-l4"><a class="reference internal" href="BinaryOptionsTools.platforms.pocketoption.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="BinaryOptionsTools.platforms.pocketoption.html#module-BinaryOptionsTools.platforms.pocketoption.api">BinaryOptionsTools.platforms.pocketoption.api module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="BinaryOptionsTools.platforms.pocketoption.html#module-BinaryOptionsTools.platforms.pocketoption.constants">BinaryOptionsTools.platforms.pocketoption.constants module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="BinaryOptionsTools.platforms.pocketoption.html#module-BinaryOptionsTools.platforms.pocketoption.expiration">BinaryOptionsTools.platforms.pocketoption.expiration module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="BinaryOptionsTools.platforms.pocketoption.html#module-BinaryOptionsTools.platforms.pocketoption.global_value">BinaryOptionsTools.platforms.pocketoption.global_value module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="BinaryOptionsTools.platforms.pocketoption.html#module-BinaryOptionsTools.platforms.pocketoption.stable_api">BinaryOptionsTools.platforms.pocketoption.stable_api module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="BinaryOptionsTools.platforms.pocketoption.html#module-BinaryOptionsTools.platforms.pocketoption">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="BinaryOptionsTools.platforms.html#module-BinaryOptionsTools.platforms">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="BinaryOptionsTools.research.html">BinaryOptionsTools.research package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="BinaryOptionsTools.research.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="BinaryOptionsTools.research.tests.html">BinaryOptionsTools.research.tests package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="BinaryOptionsTools.research.tests.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="BinaryOptionsTools.research.tests.html#module-BinaryOptionsTools.research.tests.csv_tests">BinaryOptionsTools.research.tests.csv_tests module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="BinaryOptionsTools.research.tests.html#module-BinaryOptionsTools.research.tests">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="BinaryOptionsTools.research.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="BinaryOptionsTools.research.html#module-BinaryOptionsTools.research.smalowatr">BinaryOptionsTools.research.smalowatr module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="BinaryOptionsTools.research.html#module-BinaryOptionsTools.research">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</section>
+<section id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Link to this heading"></a></h2>
+</section>
+<section id="module-BinaryOptionsTools.api">
+<span id="binaryoptionstools-api-module"></span><h2>BinaryOptionsTools.api module<a class="headerlink" href="#module-BinaryOptionsTools.api" title="Link to this heading"></a></h2>
+</section>
+<section id="module-BinaryOptionsTools">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-BinaryOptionsTools" title="Link to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="BinaryOptionsTools.pocketoption">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">BinaryOptionsTools.</span></span><span class="sig-name descname"><span class="pre">pocketoption</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ssid</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">demo</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#BinaryOptionsTools.pocketoption" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ssid</strong> (<em>str</em>)</p></li>
+<li><p><strong>demo</strong> (<em>bool</em>)</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="BinaryOptionsTools.pocketoption.Call">
+<span class="sig-name descname"><span class="pre">Call</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">amount</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">active</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'EURUSD_otc'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">expiration</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">60</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">add_check_win</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#BinaryOptionsTools.pocketoption.Call" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>amount</strong> (<em>int</em>)</p></li>
+<li><p><strong>active</strong> (<em>str</em>)</p></li>
+<li><p><strong>expiration</strong> (<em>int</em>)</p></li>
+<li><p><strong>add_check_win</strong> (<em>bool</em>)</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="BinaryOptionsTools.pocketoption.CheckWin">
+<span class="sig-name descname"><span class="pre">CheckWin</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#BinaryOptionsTools.pocketoption.CheckWin" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="BinaryOptionsTools.pocketoption.GetBalance">
+<span class="sig-name descname"><span class="pre">GetBalance</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#BinaryOptionsTools.pocketoption.GetBalance" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>int | float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="BinaryOptionsTools.pocketoption.GetCandles">
+<span class="sig-name descname"><span class="pre">GetCandles</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">active</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">period</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start_time</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">count</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">6000</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">count_request</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#BinaryOptionsTools.pocketoption.GetCandles" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="BinaryOptionsTools.pocketoption.GetPayout">
+<span class="sig-name descname"><span class="pre">GetPayout</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pair</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#BinaryOptionsTools.pocketoption.GetPayout" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="BinaryOptionsTools.pocketoption.Put">
+<span class="sig-name descname"><span class="pre">Put</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">amount</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">active</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'EURUSD_otc'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">expiration</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">60</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">add_check_win</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#BinaryOptionsTools.pocketoption.Put" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>amount</strong> (<em>int</em>)</p></li>
+<li><p><strong>active</strong> (<em>str</em>)</p></li>
+<li><p><strong>expiration</strong> (<em>int</em>)</p></li>
+<li><p><strong>add_check_win</strong> (<em>bool</em>)</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="BinaryOptionsTools.pocketoption.Reconnect">
+<span class="sig-name descname"><span class="pre">Reconnect</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">retries</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#BinaryOptionsTools.pocketoption.Reconnect" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>retries</strong> (<em>int</em>)</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="index.html" class="btn btn-neutral float-left" title="Welcome to BinaryOptionsToolsV1’s documentation!" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="BinaryOptionsTools.bot.html" class="btn btn-neutral float-right" title="BinaryOptionsTools.bot package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, Vigo Walker.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -26,3 +26,4 @@ websockets
 yarl
 sphinx
 sphinx-rtd-theme
+sphinx-autodoc

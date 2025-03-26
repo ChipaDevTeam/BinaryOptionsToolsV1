@@ -10,7 +10,11 @@ Welcome to BinaryOptionsToolsV1's documentation!
    :maxdepth: 2
    :caption: Contents:
 
-   api
+   BinaryOptionsTools
+   BinaryOptionsTools.bot
+   BinaryOptionsTools.platforms
+   BinaryOptionsTools.research
+   BinaryOptionsTools.indicators
 
 API Reference
 =============
