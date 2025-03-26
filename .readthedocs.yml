@@ -1,18 +1,8 @@
 version: 2
-
-# List of output formats (optional)
-formats:
-  - pdf
-  - epub
-  - htmlzip
-
-# Python settings
 python:
-  version: "3.10"  # Specify Python version as a string
+  version: "3.10"
   install:
     - method: pip
       path: .
-
-# Enable Sphinx build
 sphinx:
   configuration: docs/source/conf.py
