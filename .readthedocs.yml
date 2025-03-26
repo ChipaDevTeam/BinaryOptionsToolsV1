@@ -1,11 +1,18 @@
 version: 2
 
+# List of output formats (optional)
 formats:
   - pdf
   - epub
-  - htmlzip  # This is the correct format for HTML archives
+  - htmlzip
 
+# Python settings
 python:
+  version: "3.10"  # Specify Python version as a string
   install:
     - method: pip
       path: .
+
+# Enable Sphinx build
+sphinx:
+  configuration: docs/source/conf.py
