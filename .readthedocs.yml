@@ -1,7 +1,10 @@
 version: 2
-formats: 
-  - html
+
+formats:
   - pdf
+  - epub
+  - htmlzip  # This is the correct format for HTML archives
+
 python:
   install:
     - method: pip
