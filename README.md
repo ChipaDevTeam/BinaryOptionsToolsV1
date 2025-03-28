@@ -1,5 +1,7 @@
 # BinaryOptionsTools
 
+![CodeRabbit Pull Request Reviews](https://img.shields.io/coderabbit/prs/github/ChipaDevTeam/BinaryOptionsToolsV1?utm_source=oss&utm_medium=github&utm_campaign=ChipaDevTeam%2FBinaryOptionsToolsV1&labelColor=171717&color=FF570A&link=https%3A%2F%2Fcoderabbit.ai&label=CodeRabbit+Reviews)
+
 **BinaryOptionsTools** is a set of tools designed to make binary options trading easier. It helps with market analysis, strategy creation, and automatic trading. Use these tools to make smarter trading decisions.
 
 👉 [Join us on Discord](https://discord.gg/H8er9mbF4V)
