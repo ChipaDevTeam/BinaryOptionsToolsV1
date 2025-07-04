@@ -1,4 +1,4 @@
-from BinaryOptionsTools import pocketoption
+from BinaryOptionsToolsAsync import pocketoption
 from ta.trend import SMAIndicator
 from ta.volatility import AverageTrueRange
 import time

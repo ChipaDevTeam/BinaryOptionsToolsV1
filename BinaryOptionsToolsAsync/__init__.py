@@ -1,10 +1,10 @@
 # Made by © Vigo Walker and © Alenxendre Portner at Chipa
 
 # Pocket Option
-from BinaryOptionsTools.platforms.pocketoption.stable_api import PocketOption
+from BinaryOptionsToolsAsync.platforms.pocketoption.stable_api import PocketOption
 # New async wrapper and tracing for V2 compatibility
-from BinaryOptionsTools.pocketoption import PocketOptionAsync
-from BinaryOptionsTools.tracing import start_logs, get_logger
+# from BinaryOptionsToolsAsync.pocketoption import PocketOptionAsync
+# from BinaryOptionsToolsAsync.tracing import start_logs, get_logger
 
 import time
 #--------------------- Pocket Option Wrapper ---------------------#
@@ -56,3 +56,27 @@ class pocketoption:
     
     def GetPayout(self, pair):
         return self.api.GetPayout(pair)
+    
+    def SubscribePair(self, active):
+        """Subscribe to a trading pair using new PO message format: 42["subfor","AEDCNY_otc"]"""
+        return self.api.subscribe_pair(active)
+    
+    def UnsubscribePair(self, active):
+        """Unsubscribe from a trading pair using new PO message format: 42["unsubfor","AEDCNY_otc"]"""
+        return self.api.unsubscribe_pair(active)
+    
+    def SubscribeCandles(self, active):
+        """Subscribe to candle data for a trading pair"""
+        return self.api.subscribe_candles(active)
+    
+    def UnsubscribeCandles(self, active):
+        """Unsubscribe from candle data for a trading pair"""
+        return self.api.unsubscribe_candles(active)
+    
+    def SubscribeTradingPair(self, active):
+        """Subscribe to trading pair data"""
+        return self.api.subscribe_trading_pair(active)
+    
+    def UnsubscribeTradingPair(self, active):
+        """Unsubscribe from trading pair data"""
+        return self.api.unsubscribe_trading_pair(active)

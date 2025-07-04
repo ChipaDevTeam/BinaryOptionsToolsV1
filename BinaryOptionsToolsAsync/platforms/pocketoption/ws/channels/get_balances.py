@@ -1,4 +1,4 @@
-from BinaryOptionsTools.platforms.pocketoption.ws.channels.base import Base
+from BinaryOptionsToolsAsync.platforms.pocketoption.ws.channels.base import Base
 # import time
 
 

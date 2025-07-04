@@ -6,7 +6,7 @@ import asyncio
 import time
 import logging
 from concurrent.futures import ThreadPoolExecutor
-from BinaryOptionsTools.platforms.pocketoption.stable_api import PocketOption
+from BinaryOptionsToolsAsync.platforms.pocketoption.stable_api import PocketOption
 
 
 class PocketOptionAsync:

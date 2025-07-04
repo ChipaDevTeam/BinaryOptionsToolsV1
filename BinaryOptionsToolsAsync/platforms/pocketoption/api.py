@@ -4,14 +4,15 @@ import json
 import logging
 import requests
 from collections import deque
-from BinaryOptionsTools.platforms.pocketoption.ws.client import WebsocketClient
-from BinaryOptionsTools.platforms.pocketoption.ws.channels.get_balances import Get_Balances
-# from pocketoptionapi.ws.channels.subscribe import *
-# from pocketoptionapi.ws.channels.unsubscribe import *
+from BinaryOptionsToolsAsync.platforms.pocketoption.ws.client import WebsocketClient
+from BinaryOptionsToolsAsync.platforms.pocketoption.ws.channels.get_balances import Get_Balances
+from BinaryOptionsToolsAsync.platforms.pocketoption.ws.channels.subscribe import Subscribe, SubscribeCandles, SubscribeTradingPair
+from BinaryOptionsToolsAsync.platforms.pocketoption.ws.channels.unsubscribe import Unsubscribe, UnsubscribeCandles, UnsubscribeTradingPair
 # from pocketoptionapi.ws.channels.setactives import SetActives
-from BinaryOptionsTools.platforms.pocketoption.ws.channels.candles import GetCandles
+from BinaryOptionsToolsAsync.platforms.pocketoption.ws.channels.candles import GetCandles
 # from pocketoptionapi.ws.channels.buyv2 import Buyv2
-from BinaryOptionsTools.platforms.pocketoption.ws.channels.buyv3 import Buyv3
+from BinaryOptionsToolsAsync.platforms.pocketoption.ws.channels.buyv3 import Buyv3
+from BinaryOptionsToolsAsync.platforms.pocketoption.ws.channels.change_symbol import ChangeSymbol
 # from pocketoptionapi.ws.channels.user import *
 # from pocketoptionapi.ws.channels.api_game_betinfo import Game_betinfo
 # from pocketoptionapi.ws.channels.instruments import Get_instruments
@@ -38,15 +39,15 @@ from BinaryOptionsTools.platforms.pocketoption.ws.channels.buyv3 import Buyv3
 # from pocketoptionapi.ws.channels.change_tpsl import Change_Tpsl
 # from pocketoptionapi.ws.channels.change_auto_margin_call import ChangeAutoMarginCall
 
-from BinaryOptionsTools.platforms.pocketoption.ws.objects.timesync import TimeSync
+from BinaryOptionsToolsAsync.platforms.pocketoption.ws.objects.timesync import TimeSync
 # from pocketoptionapi.ws.objects.profile import Profile
-from BinaryOptionsTools.platforms.pocketoption.ws.objects.candles import Candles
+from BinaryOptionsToolsAsync.platforms.pocketoption.ws.objects.candles import Candles
 # from pocketoptionapi.ws.objects.listinfodata import ListInfoData
 # from pocketoptionapi.ws.objects.betinfo import Game_betinfo_data
-import BinaryOptionsTools.platforms.pocketoption.global_value as global_value
-from BinaryOptionsTools.platforms.pocketoption.ws.channels.change_symbol import ChangeSymbol
+import BinaryOptionsToolsAsync.platforms.pocketoption.global_value as global_value
+from BinaryOptionsToolsAsync.platforms.pocketoption.ws.channels.change_symbol import ChangeSymbol
 from collections import defaultdict
-from BinaryOptionsTools.platforms.pocketoption.ws.objects.time_sync import TimeSynchronizer
+from BinaryOptionsToolsAsync.platforms.pocketoption.ws.objects.time_sync import TimeSynchronizer
 
 
 def nested_dict(n, type):
@@ -270,6 +271,60 @@ class PocketOptionAPI(object):  # pylint: disable=too-many-instance-attributes
             <pocketoptionapi.ws.channels.candles.GetCandles>`.
         """
         return GetCandles(self)
+
+    @property
+    def subscribe(self):
+        """Property for get PocketOption websocket subscribe channel.
+
+        :returns: The instance of :class:`Subscribe
+            <BinaryOptionsToolsAsync.ws.channels.subscribe.Subscribe>`.
+        """
+        return Subscribe(self)
+
+    @property
+    def unsubscribe(self):
+        """Property for get PocketOption websocket unsubscribe channel.
+
+        :returns: The instance of :class:`Unsubscribe
+            <BinaryOptionsToolsAsync.ws.channels.unsubscribe.Unsubscribe>`.
+        """
+        return Unsubscribe(self)
+
+    @property
+    def subscribe_candles(self):
+        """Property for get PocketOption websocket subscribe candles channel.
+
+        :returns: The instance of :class:`SubscribeCandles
+            <BinaryOptionsToolsAsync.ws.channels.subscribe.SubscribeCandles>`.
+        """
+        return SubscribeCandles(self)
+
+    @property
+    def unsubscribe_candles(self):
+        """Property for get PocketOption websocket unsubscribe candles channel.
+
+        :returns: The instance of :class:`UnsubscribeCandles
+            <BinaryOptionsToolsAsync.ws.channels.unsubscribe.UnsubscribeCandles>`.
+        """
+        return UnsubscribeCandles(self)
+
+    @property
+    def subscribe_trading_pair(self):
+        """Property for get PocketOption websocket subscribe trading pair channel.
+
+        :returns: The instance of :class:`SubscribeTradingPair
+            <BinaryOptionsToolsAsync.ws.channels.subscribe.SubscribeTradingPair>`.
+        """
+        return SubscribeTradingPair(self)
+
+    @property
+    def unsubscribe_trading_pair(self):
+        """Property for get PocketOption websocket unsubscribe trading pair channel.
+
+        :returns: The instance of :class:`UnsubscribeTradingPair
+            <BinaryOptionsToolsAsync.ws.channels.unsubscribe.UnsubscribeTradingPair>`.
+        """
+        return UnsubscribeTradingPair(self)
 
     @property
     def change_symbol(self):

@@ -6,10 +6,10 @@ import logging
 import ssl
 
 # Suponiendo la existencia de estos módulos basados en tu código original
-import BinaryOptionsTools.platforms.pocketoption.global_value as global_value
-from BinaryOptionsTools.platforms.pocketoption.constants import REGION
-from BinaryOptionsTools.platforms.pocketoption.ws.objects.timesync import TimeSync
-from BinaryOptionsTools.platforms.pocketoption.ws.objects.time_sync import TimeSynchronizer
+import BinaryOptionsToolsAsync.platforms.pocketoption.global_value as global_value
+from BinaryOptionsToolsAsync.platforms.pocketoption.constants import REGION
+from BinaryOptionsToolsAsync.platforms.pocketoption.ws.objects.timesync import TimeSync
+from BinaryOptionsToolsAsync.platforms.pocketoption.ws.objects.time_sync import TimeSynchronizer
 
 import re
 
@@ -120,8 +120,7 @@ class WebsocketClient(object):
 
         try:
             await self.api.close()
-        except Exception as e:
-            self.logger.warning(f"Error connecting, {e}")  
+        except Exception as e: 
             pass
 
         while not global_value.websocket_is_connected:

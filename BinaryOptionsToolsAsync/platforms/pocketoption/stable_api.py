@@ -5,12 +5,12 @@ import threading
 import sys
 from tzlocal import get_localzone
 import json
-from BinaryOptionsTools.platforms.pocketoption.api import PocketOptionAPI
+from BinaryOptionsToolsAsync.platforms.pocketoption.api import PocketOptionAPI
 # import pocketoptionapi.country_id as Country
 # import threading
 import time
 import logging
-import BinaryOptionsTools.platforms.pocketoption.global_value as global_value
+import BinaryOptionsToolsAsync.platforms.pocketoption.global_value as global_value
 from collections import defaultdict
 # from pocketoptionapi.expiration import get_expiration_time, get_remaning_time
 import pandas as pd
@@ -414,3 +414,99 @@ class PocketOption:
 
     def sync_datetime(self):
         return self.api.synced_datetime
+
+    def subscribe_pair(self, active):
+        """
+        Subscribe to a trading pair using new PocketOption message format.
+        
+        Args:
+            active: Trading pair (e.g., "AEDCNY_otc")
+            
+        Returns:
+            Result of subscription request
+        """
+        try:
+            return self.api.subscribe(active)
+        except Exception as e:
+            self.logger.warning(f"Error subscribing to {active}: {e}")
+            return None
+
+    def unsubscribe_pair(self, active):
+        """
+        Unsubscribe from a trading pair using new PocketOption message format.
+        
+        Args:
+            active: Trading pair (e.g., "AEDCNY_otc")
+            
+        Returns:
+            Result of unsubscription request
+        """
+        try:
+            return self.api.unsubscribe(active)
+        except Exception as e:
+            self.logger.warning(f"Error unsubscribing from {active}: {e}")
+            return None
+
+    def subscribe_candles(self, active):
+        """
+        Subscribe to candle data for a trading pair.
+        
+        Args:
+            active: Trading pair (e.g., "AEDCNY_otc")
+            
+        Returns:
+            Result of candle subscription request
+        """
+        try:
+            return self.api.subscribe_candles(active)
+        except Exception as e:
+            self.logger.warning(f"Error subscribing to candles for {active}: {e}")
+            return None
+
+    def unsubscribe_candles(self, active):
+        """
+        Unsubscribe from candle data for a trading pair.
+        
+        Args:
+            active: Trading pair (e.g., "AEDCNY_otc")
+            
+        Returns:
+            Result of candle unsubscription request
+        """
+        try:
+            return self.api.unsubscribe_candles(active)
+        except Exception as e:
+            self.logger.warning(f"Error unsubscribing from candles for {active}: {e}")
+            return None
+
+    def subscribe_trading_pair(self, active):
+        """
+        Subscribe to trading pair data.
+        
+        Args:
+            active: Trading pair (e.g., "AEDCNY_otc")
+            
+        Returns:
+            Result of trading pair subscription request
+        """
+        try:
+            return self.api.subscribe_trading_pair(active)
+        except Exception as e:
+            self.logger.warning(f"Error subscribing to trading pair {active}: {e}")
+            return None
+
+    def unsubscribe_trading_pair(self, active):
+        """
+        Unsubscribe from trading pair data.
+        
+        Args:
+            active: Trading pair (e.g., "AEDCNY_otc")
+            
+        Returns:
+            Result of trading pair unsubscription request
+        """
+        try:
+            return self.api.unsubscribe_trading_pair(active)
+        except Exception as e:
+            self.logger.warning(f"Error unsubscribing from trading pair {active}: {e}")
+            return None

@@ -1,7 +1,7 @@
 # import datetime
 # import json
 # import time
-from BinaryOptionsTools.platforms.pocketoption.ws.channels.base import Base
+from BinaryOptionsToolsAsync.platforms.pocketoption.ws.channels.base import Base
 # import logging
 # import BinaryOptionsTools.platforms.pocketoption.global_value as global_value
 

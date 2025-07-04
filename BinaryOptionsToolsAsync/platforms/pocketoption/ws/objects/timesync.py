@@ -3,7 +3,7 @@
 import time
 import datetime
 
-from BinaryOptionsTools.platforms.pocketoption.ws.objects.base import Base
+from BinaryOptionsToolsAsync.platforms.pocketoption.ws.objects.base import Base
 
 
 class TimeSync(Base):
