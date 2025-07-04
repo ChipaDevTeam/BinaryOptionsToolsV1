@@ -13,7 +13,7 @@ multidict
 numpy              
 pandas             
 propcache          
-python-dateutil    0
+python-dateutil
 pytz               
 requests           
 six                
