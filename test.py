@@ -27,7 +27,8 @@ class BinaryOptionsModel(nn.Module):
         x = self.sigmoid(x)
         return x
 # Load the session and connect to the PocketOption API
-ssid = (r'42["auth",{"session":"n6ghkt8nk931jj6ffljoj8knj3","isDemo":1,"uid":85249466,"platform":2}]')
+# Your SSID from the browser WebSocket connection
+ssid = (r'42["auth",{"session":"dd4ij8petulqcfuapcvkv578p1","isDemo":1,"uid":105754921,"platform":3,"isFastHistory":true,"isOptimized":true}]')
 
 api = pocketoption(ssid, True)
 

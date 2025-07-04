@@ -58,6 +58,11 @@ class PocketOption:
         self.loop = asyncio.get_event_loop()
         self.logger = logging.getLogger("PocketOption")
 
+        # Initialize OHLC aggregation system
+        from .ohlc_aggregator import SubscriptionManager
+        self.ohlc_manager = SubscriptionManager()
+        self.ohlc_subscriptions = {}  # Track OHLC subscriptions
+
         #
 
         # --start
@@ -271,8 +276,8 @@ class PocketOption:
 
     def get_candles(self, active, period, start_time=None, count=6000, count_request=1):
         """
-        Realiza múltiples peticiones para obtener datos históricos de velas y los procesa.
-        Devuelve un Dataframe ordenado de menor a mayor por la columna 'time'.
+        Obtiene datos históricos de velas usando suscripción a candles y peticiones históricas.
+        Devuelve un DataFrame ordenado de menor a mayor por la columna 'time'.
 
         :param active: El activo para el cual obtener las velas.
         :param period: El intervalo de tiempo de cada vela en segundos.
@@ -281,6 +286,9 @@ class PocketOption:
         :param count_request: El número de peticiones para obtener más datos históricos.
         """
         try:
+            # Subscribe to candles for real-time data first
+            self.subscribe_candles(active)
+            
             if start_time is None:
                 time_sync = self.get_server_timestamp()
                 time_red = self.last_time(time_sync, period)
@@ -289,58 +297,126 @@ class PocketOption:
                 time_sync = self.get_server_timestamp()
 
             all_candles = []
+            max_retries = 3
+            retry_delay = 0.5
 
-            for _ in range(count_request):
+            for request_num in range(count_request):
                 self.api.history_data = None
-                #print("In FOr Loop")
-
-                while True:
-                    #logging.info("Entered WHileloop in GetCandles")
-                    #print("In WHile loop")
+                retries = 0
+                
+                while retries < max_retries:
                     try:
-                        # Enviar la petición de velas
-                        #print("Before get candles")
+                        # Send candle request
                         self.api.getcandles(active, period, count, time_red)
-                        #print("AFter get candles")
-
-                        # Esperar hasta que history_data no sea None
-                        for i in range(1, 100):
-                            if self.api.history_data is None:
-                                #print(f"SLeeping, attempt: {i} / 100")
-                                time.sleep(0.1)
-                            if i == 99:
-                                break
+                        
+                        # Wait for history_data with improved timeout handling
+                        timeout_counter = 0
+                        max_timeout = 150  # Increased timeout for better reliability
+                        
+                        while self.api.history_data is None and timeout_counter < max_timeout:
+                            time.sleep(0.1)
+                            timeout_counter += 1
+                            
+                            # Check if we have real-time candle data available
+                            if (active in self.api.real_time_candles and 
+                                period in self.api.real_time_candles[active] and
+                                len(self.api.real_time_candles[active][period]) > 0):
+                                
+                                # Use real-time candle data as fallback
+                                self.logger.info(f"Using real-time candle data for {active}")
+                                real_time_data = list(self.api.real_time_candles[active][period].values())
+                                if real_time_data:
+                                    # Convert real-time data to the expected format
+                                    formatted_data = []
+                                    for candle in real_time_data[-min(len(real_time_data), count//period):]:
+                                        if isinstance(candle, dict):
+                                            formatted_data.append({
+                                                'time': candle.get('time', 0),
+                                                'open': candle.get('open', 0),
+                                                'close': candle.get('close', 0),
+                                                'high': candle.get('high', 0),
+                                                'low': candle.get('low', 0),
+                                                'volume': candle.get('volume', 0)
+                                            })
+                                    
+                                    if formatted_data:
+                                        all_candles.extend(formatted_data)
+                                        break
 
                         if self.api.history_data is not None:
-                            #print("In break")
                             all_candles.extend(self.api.history_data)
                             break
+                        elif timeout_counter >= max_timeout:
+                            self.logger.warning(f"Timeout waiting for history data, attempt {retries + 1}/{max_retries}")
+                            retries += 1
+                            if retries < max_retries:
+                                time.sleep(retry_delay)
+                            else:
+                                self.logger.error(f"Failed to get candles after {max_retries} attempts")
+                                break
 
                     except Exception as e:
-                        logging.error(e)
-                        # Puedes agregar lógica de reconexión aquí si es necesario
-                        #self.api.connect()
+                        self.logger.error(f"Error in get_candles request {request_num + 1}: {e}")
+                        retries += 1
+                        if retries < max_retries:
+                            time.sleep(retry_delay)
+                        else:
+                            break
 
-                # Ordenar all_candles por 'index' para asegurar que estén en el orden correcto
-                all_candles = sorted(all_candles, key=lambda x: x["time"])
-
-                # Asegurarse de que se han recibido velas antes de actualizar time_red
+                # Sort candles and update time_red for next request
                 if all_candles:
-                    # Usar el tiempo de la última vela recibida para la próxima petición
+                    all_candles = sorted(all_candles, key=lambda x: x.get("time", 0))
+                    # Use the earliest time for the next request
                     time_red = all_candles[0]["time"]
 
-            # Crear un DataFrame con todas las velas obtenidas
-            df_candles = pd.DataFrame(all_candles)
+            # Unsubscribe from candles to clean up
+            try:
+                self.unsubscribe_candles(active)
+            except:
+                pass
 
-            # Ordenar por la columna 'time' de menor a mayor
+            if not all_candles:
+                self.logger.warning(f"No candles received for {active}")
+                return pd.DataFrame()
+
+            # Remove duplicates based on time
+            unique_candles = []
+            seen_times = set()
+            for candle in all_candles:
+                candle_time = candle.get("time", 0)
+                if candle_time not in seen_times:
+                    seen_times.add(candle_time)
+                    unique_candles.append(candle)
+
+            # Create DataFrame with all obtained candles
+            df_candles = pd.DataFrame(unique_candles)
+
+            if df_candles.empty:
+                self.logger.warning(f"DataFrame is empty for {active}")
+                return df_candles
+
+            # Ensure all required columns exist
+            required_columns = ['time', 'open', 'high', 'low', 'close']
+            for col in required_columns:
+                if col not in df_candles.columns:
+                    df_candles[col] = 0
+
+            # Sort by time column (ascending order)
             df_candles = df_candles.sort_values(by='time').reset_index(drop=True)
             df_candles['time'] = pd.to_datetime(df_candles['time'], unit='s')
             df_candles.set_index('time', inplace=True)
             df_candles.index = df_candles.index.floor('1s')
+            
             return df_candles
+            
         except Exception as e:
-            print(f"Error: {e}")
-            return e
+            self.logger.error(f"Error in get_candles: {e}")
+            # Ensure cleanup
+            try:
+                self.unsubscribe_candles(active)
+            except:
+                pass
+            return pd.DataFrame()
 
     @staticmethod
     def process_data_history(data, period):
@@ -447,18 +523,46 @@ class PocketOption:
             self.logger.warning(f"Error unsubscribing from {active}: {e}")
             return None
 
-    def subscribe_candles(self, active):
+    def subscribe_candles(self, active, create_ohlc=False, timeframe_seconds=60, max_candles=1000, on_candle_complete=None):
         """
         Subscribe to candle data for a trading pair.
         
         Args:
             active: Trading pair (e.g., "AEDCNY_otc")
+            create_ohlc: If True, aggregates tick data into OHLC candles
+            timeframe_seconds: Timeframe for OHLC candles in seconds (default: 60)
+            max_candles: Maximum number of OHLC candles to keep in memory
+            on_candle_complete: Callback function called when an OHLC candle is completed
             
         Returns:
             Result of candle subscription request
         """
         try:
-            return self.api.subscribe_candles(active)
+            # Subscribe to raw tick data
+            result = self.api.subscribe_candles(active)
+            
+            # If OHLC aggregation is requested, set it up
+            if create_ohlc:
+                success = self.ohlc_manager.subscribe_candles_ohlc(
+                    asset=active,
+                    timeframe_seconds=timeframe_seconds,
+                    max_candles=max_candles,
+                    on_candle_complete=on_candle_complete
+                )
+                
+                if success:
+                    # Track this subscription
+                    self.ohlc_subscriptions[active] = {
+                        'timeframe': timeframe_seconds,
+                        'max_candles': max_candles,
+                        'callback': on_candle_complete
+                    }
+                    self.logger.info(f"OHLC aggregation enabled for {active} with {timeframe_seconds}s timeframe")
+                else:
+                    self.logger.warning(f"Failed to enable OHLC aggregation for {active}")
+            
+            return result
+            
         except Exception as e:
             self.logger.warning(f"Error subscribing to candles for {active}: {e}")
             return None
@@ -474,39 +578,203 @@ class PocketOption:
             Result of candle unsubscription request
         """
         try:
-            return self.api.unsubscribe_candles(active)
+            # Unsubscribe from OHLC aggregation if active
+            if active in self.ohlc_subscriptions:
+                timeframe = self.ohlc_subscriptions[active]['timeframe']
+                self.ohlc_manager.unsubscribe_candles_ohlc(active, timeframe)
+                del self.ohlc_subscriptions[active]
+                self.logger.info(f"OHLC aggregation disabled for {active}")
+            
+            # Unsubscribe from raw tick data
+            result = self.api.unsubscribe_candles(active)
+            return result
+            
         except Exception as e:
             self.logger.warning(f"Error unsubscribing from candles for {active}: {e}")
             return None
-
-    def subscribe_trading_pair(self, active):
+    
+    def get_ohlc_candles(self, active, timeframe_seconds=60, count=None):
         """
-        Subscribe to trading pair data.
+        Get aggregated OHLC candles for a trading pair.
         
         Args:
             active: Trading pair (e.g., "AEDCNY_otc")
+            timeframe_seconds: Timeframe in seconds
+            count: Number of candles to return (None for all)
             
         Returns:
-            Result of trading pair subscription request
+            List of OHLC candles in dictionary format
         """
         try:
-            return self.api.subscribe_trading_pair(active)
+            return self.ohlc_manager.get_candles(active, timeframe_seconds, count)
         except Exception as e:
-            self.logger.warning(f"Error subscribing to trading pair {active}: {e}")
-            return None
-
-    def unsubscribe_trading_pair(self, active):
+            self.logger.warning(f"Error getting OHLC candles for {active}: {e}")
+            return []
+    
+    def get_current_ohlc_candle(self, active, timeframe_seconds=60):
         """
-        Unsubscribe from trading pair data.
+        Get the current incomplete OHLC candle for a trading pair.
         
         Args:
             active: Trading pair (e.g., "AEDCNY_otc")
+            timeframe_seconds: Timeframe in seconds
             
         Returns:
-            Result of trading pair unsubscription request
+            Current incomplete candle or None
         """
         try:
-            return self.api.unsubscribe_trading_pair(active)
+            return self.ohlc_manager.get_current_candle(active, timeframe_seconds)
         except Exception as e:
-            self.logger.warning(f"Error unsubscribing from trading pair {active}: {e}")
+            self.logger.warning(f"Error getting current OHLC candle for {active}: {e}")
             return None
+    
+    def get_ohlc_stats(self):
+        """Get OHLC aggregation statistics"""
+        if not hasattr(self, 'ohlc_aggregator') or self.ohlc_aggregator is None:
+            return {"error": "OHLC aggregator not initialized"}
+        
+        return self.ohlc_aggregator.get_stats()
+    
+    # Technical Analysis Methods
+    
+    def get_technical_indicators(self, active="EURUSD_otc", timeframe=60, num_candles=200):
+        """Get all technical indicators for a trading pair"""
+        try:
+            from BinaryOptionsToolsAsync.indicators.technical_analysis import get_all_indicators
+            return get_all_indicators(self, timeframe, active, num_candles)
+        except ImportError:
+            return {"error": "Technical analysis module not available"}
+        except Exception as e:
+            return {"error": f"Technical indicators analysis failed: {str(e)}"}
+    
+    def get_trading_signals(self, active="EURUSD_otc", timeframe=60, num_candles=200):
+        """Get consolidated trading signals from all indicators"""
+        try:
+            from BinaryOptionsToolsAsync.indicators.technical_analysis import get_trading_signals
+            return get_trading_signals(self, timeframe, active, num_candles)
+        except ImportError:
+            return {"error": "Technical analysis module not available"}
+        except Exception as e:
+            return {"error": f"Trading signals analysis failed: {str(e)}"}
+    
+    def get_chart_patterns(self, active="EURUSD_otc", timeframe=60, num_candles=100):
+        """Get chart pattern analysis for a trading pair"""
+        try:
+            from BinaryOptionsToolsAsync.indicators.technical_analysis import get_chart_patterns
+            return get_chart_patterns(self, timeframe, active, num_candles)
+        except ImportError:
+            return {"error": "Technical analysis module not available"}
+        except Exception as e:
+            return {"error": f"Chart pattern analysis failed: {str(e)}"}
+    
+    def get_price_action_analysis(self, active="EURUSD_otc", timeframe=60, num_candles=100):
+        """Get comprehensive price action analysis"""
+        try:
+            from BinaryOptionsToolsAsync.indicators.technical_analysis import get_price_action_analysis
+            return get_price_action_analysis(self, timeframe, active, num_candles)
+        except ImportError:
+            return {"error": "Technical analysis module not available"}
+        except Exception as e:
+            return {"error": f"Price action analysis failed: {str(e)}"}
+    
+    def get_comprehensive_analysis(self, active="EURUSD_otc", timeframe=60, num_candles=200):
+        """Get comprehensive technical analysis including indicators, patterns, and price action"""
+        try:
+            from BinaryOptionsToolsAsync.indicators.technical_analysis import get_comprehensive_analysis
+            return get_comprehensive_analysis(self, timeframe, active, num_candles)
+        except ImportError:
+            return {"error": "Technical analysis module not available"}
+        except Exception as e:
+            return {"error": f"Comprehensive analysis failed: {str(e)}"}
+    
+    # Individual Indicator Methods
+    
+    def get_sma(self, active="EURUSD_otc", timeframe=60, period=20, num_candles=50):
+        """Get Simple Moving Average"""
+        try:
+            from BinaryOptionsToolsAsync.indicators.technical_analysis import get_sma
+            return get_sma(self, timeframe, active, period, num_candles)
+        except ImportError:
+            return {"error": "Technical analysis module not available"}
+        except Exception as e:
+            return {"error": f"SMA calculation failed: {str(e)}"}
+    
+    def get_ema(self, active="EURUSD_otc", timeframe=60, period=20, num_candles=50):
+        """Get Exponential Moving Average"""
+        try:
+            from BinaryOptionsToolsAsync.indicators.technical_analysis import get_ema
+            return get_ema(self, timeframe, active, period, num_candles)
+        except ImportError:
+            return {"error": "Technical analysis module not available"}
+        except Exception as e:
+            return {"error": f"EMA calculation failed: {str(e)}"}
+    
+    def get_rsi(self, active="EURUSD_otc", timeframe=60, period=14, num_candles=50):
+        """Get Relative Strength Index"""
+        try:
+            from BinaryOptionsToolsAsync.indicators.technical_analysis import get_rsi
+            return get_rsi(self, timeframe, active, period, num_candles)
+        except ImportError:
+            return {"error": "Technical analysis module not available"}
+        except Exception as e:
+            return {"error": f"RSI calculation failed: {str(e)}"}
+    
+    def get_macd(self, active="EURUSD_otc", timeframe=60, fast_period=12, slow_period=26, signal_period=9, num_candles=100):
+        """Get MACD (Moving Average Convergence Divergence)"""
+        try:
+            from BinaryOptionsToolsAsync.indicators.technical_analysis import get_macd
+            return get_macd(self, timeframe, active, fast_period, slow_period, signal_period, num_candles)
+        except ImportError:
+            return {"error": "Technical analysis module not available"}
+        except Exception as e:
+            return {"error": f"MACD calculation failed: {str(e)}"}
+    
+    def get_bollinger_bands(self, active="EURUSD_otc", timeframe=60, period=20, num_candles=50):
+        """Get Bollinger Bands"""
+        try:
+            from BinaryOptionsToolsAsync.indicators.technical_analysis import get_bollinger_bands
+            return get_bollinger_bands(self, timeframe, active, period, num_candles)
+        except ImportError:
+            return {"error": "Technical analysis module not available"}
+        except Exception as e:
+            return {"error": f"Bollinger Bands calculation failed: {str(e)}"}
+    
+    def get_stochastic(self, active="EURUSD_otc", timeframe=60, k_period=14, d_period=3, num_candles=50):
+        """Get Stochastic Oscillator"""
+        try:
+            from BinaryOptionsToolsAsync.indicators.technical_analysis import get_stochastic
+            return get_stochastic(self, timeframe, active, k_period, d_period, num_candles)
+        except ImportError:
+            return {"error": "Technical analysis module not available"}
+        except Exception as e:
+            return {"error": f"Stochastic calculation failed: {str(e)}"}
+    
+    def get_williams_r(self, active="EURUSD_otc", timeframe=60, period=14, num_candles=50):
+        """Get Williams %R"""
+        try:
+            from BinaryOptionsToolsAsync.indicators.technical_analysis import get_williams_r
+            return get_williams_r(self, timeframe, active, period, num_candles)
+        except ImportError:
+            return {"error": "Technical analysis module not available"}
+        except Exception as e:
+            return {"error": f"Williams %R calculation failed: {str(e)}"}
+    
+    def get_atr(self, active="EURUSD_otc", timeframe=60, period=14, num_candles=50):
+        """Get Average True Range"""
+        try:
+            from BinaryOptionsToolsAsync.indicators.technical_analysis import get_atr
+            return get_atr(self, timeframe, active, period, num_candles)
+        except ImportError:
+            return {"error": "Technical analysis module not available"}
+        except Exception as e:
+            return {"error": f"ATR calculation failed: {str(e)}"}
+    
+    def get_support_resistance(self, active="EURUSD_otc", timeframe=60, num_candles=100):
+        """Get Support and Resistance levels"""
+        try:
+            from BinaryOptionsToolsAsync.indicators.technical_analysis import get_support_resistance
+            return get_support_resistance(self, timeframe, active, num_candles)
+        except ImportError:
+            return {"error": "Technical analysis module not available"}
+        except Exception as e:
+            return {"error": f"Support/Resistance calculation failed: {str(e)}"}

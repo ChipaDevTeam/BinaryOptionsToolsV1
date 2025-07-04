@@ -259,7 +259,66 @@ class WebsocketClient(object):
 
             elif self.history_data_ready and isinstance(message, dict):
                 self.history_data_ready = False
-                self.api.history_data = message["data"]
+                # Enhanced parsing for candle data
+                if "data" in message:
+                    data = message["data"]
+                    # Check if data contains candles in the format you provided
+                    if isinstance(data, dict) and "candles" in data:
+                        # Convert candles format: [timestamp, open, close, high, low] to standard format
+                        candles = data["candles"]
+                        formatted_candles = []
+                        
+                        self.logger.debug(f"Processing {len(candles)} candles from historical data")
+                        
+                        for candle in candles:
+                            if len(candle) >= 5:
+                                formatted_candle = {
+                                    "time": int(candle[0]) if candle[0] else 0,
+                                    "open": float(candle[1]) if candle[1] else 0.0,
+                                    "close": float(candle[2]) if candle[2] else 0.0,
+                                    "high": float(candle[3]) if candle[3] else 0.0,
+                                    "low": float(candle[4]) if candle[4] else 0.0,
+                                    "volume": 0
+                                }
+                                formatted_candles.append(formatted_candle)
+                            else:
+                                self.logger.warning(f"Skipping incomplete candle data: {candle}")
+                        
+                        self.api.history_data = formatted_candles
+                        self.logger.debug(f"Stored {len(formatted_candles)} formatted candles")
+                        
+                        # Also store asset and period info if available
+                        if "asset" in data:
+                            self.api.last_candle_asset = data["asset"]
+                        if "period" in data:
+                            self.api.last_candle_period = data["period"]
+                    
+                    # Handle alternative format where candles might be directly in data
+                    elif isinstance(data, list) and len(data) > 0 and isinstance(data[0], list):
+                        # Check if this looks like candle data [timestamp, open, close, high, low]
+                        formatted_candles = []
+                        for candle in data:
+                            if len(candle) >= 5:
+                                formatted_candle = {
+                                    "time": int(candle[0]) if candle[0] else 0,
+                                    "open": float(candle[1]) if candle[1] else 0.0,
+                                    "close": float(candle[2]) if candle[2] else 0.0,
+                                    "high": float(candle[3]) if candle[3] else 0.0,
+                                    "low": float(candle[4]) if candle[4] else 0.0,
+                                    "volume": 0
+                                }
+                                formatted_candles.append(formatted_candle)
+                        
+                        if formatted_candles:
+                            self.api.history_data = formatted_candles
+                            self.logger.debug(f"Stored {len(formatted_candles)} candles from direct data array")
+                    else:
+                        # Fallback to original data format
+                        self.api.history_data = data
+                        self.logger.debug("Using fallback data format")
+                else:
+                    self.api.history_data = message
+                    self.logger.debug("Storing raw message as history data")
 
             elif self.updateStream and isinstance(message, list):
                 self.updateStream = False
@@ -268,6 +327,51 @@ class WebsocketClient(object):
             elif self.updateHistoryNew and isinstance(message, dict):
                 self.updateHistoryNew = False
                 self.api.historyNew = message
+            
+            # Handle real-time candle streaming data
+            elif isinstance(message, list) and len(message) > 0:
+                # Check for real-time candle format: [["ASSET", timestamp, price]]
+                processed_items = 0
+                for item in message:
+                    if isinstance(item, list) and len(item) >= 3:
+                        try:
+                            asset = str(item[0])
+                            timestamp = int(item[1]) if item[1] else 0
+                            price = float(item[2]) if item[2] else 0.0
+                            
+                            # Store in real_time_candles for fallback use
+                            if hasattr(self.api, 'real_time_candles'):
+                                if asset not in self.api.real_time_candles:
+                                    self.api.real_time_candles[asset] = {}
+                                
+                                # Assume 1-second period for real-time data
+                                period = 1
+                                if period not in self.api.real_time_candles[asset]:
+                                    self.api.real_time_candles[asset][period] = {}
+                                
+                                # Create candle entry
+                                candle_data = {
+                                    "time": timestamp,
+                                    "open": price,
+                                    "close": price,
+                                    "high": price,
+                                    "low": price,
+                                    "volume": 0
+                                }
+                                
+                                self.api.real_time_candles[asset][period][timestamp] = candle_data
+                                processed_items += 1
+                            
+                            # Feed to OHLC aggregator if available
+                            if hasattr(self.api, 'ohlc_manager') and asset in getattr(self.api, 'ohlc_subscriptions', {}):
+                                self.api.ohlc_manager.process_tick(asset, timestamp, price)
+                            
+                        except (ValueError, IndexError, TypeError) as e:
+                            self.logger.warning(f"Error processing real-time item {item}: {e}")
+                
+                if processed_items > 0:
+                    self.logger.debug(f"Processed {processed_items} real-time candle items")
+            
             elif '[[5,"#AAPL","Apple","stock' in message2:
                 global_value.PayoutData = message2
             return
