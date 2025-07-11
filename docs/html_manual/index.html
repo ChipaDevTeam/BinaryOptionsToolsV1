@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BinaryOptionsToolsV1 Documentation</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="header">
+    <h1>BinaryOptionsToolsV1</h1>
+    <p>Async tools and strategies for binary options trading</p>
+  </div>
+  <nav>
+    <a href="#getting-started">Getting Started</a>
+    <a href="#async-usage">Async Usage</a>
+    <a href="#api-reference">API Reference</a>
+    <a href="#examples">Examples</a>
+    <a href="#faq">FAQ</a>
+  </nav>
+  <div class="container">
+    <h2 id="getting-started">Getting Started</h2>
+    <div class="callout">
+      <b>Tip:</b> Always use a virtual environment and test with demo accounts first!
+    </div>
+    <p>Install dependencies:</p>
+    <pre><code>pip install .
+pip install pandas</code></pre>
+    <p>Minimal usage:</p>
+    <pre><code>from BinaryOptionsToolsAsync.pocketoption import PocketOptionAsync
+import asyncio
+
+async def main():
+    api = PocketOptionAsync(ssid, demo=True)
+    balance = await api.balance()
+    print(balance)
+    await api.close()
+
+asyncio.run(main())
+</code></pre>
+
+    <h2 id="async-usage">Async Usage & Strategies</h2>
+    <p>Fetch candles, calculate indicators, and place trades asynchronously:</p>
+    <pre><code>import pandas as pd
+candles = await api.get_candles("EURUSD_otc", period=60, duration=1200)
+df = pd.DataFrame(candles)
+df['SMA_5'] = df['close'].rolling(window=5).mean()
+if df['close'].iloc[-1] > df['SMA_5'].iloc[-1]:
+    trade_id, success = await api.buy("EURUSD_otc", amount=1, time=60)
+else:
+    trade_id, success = await api.sell("EURUSD_otc", amount=1, time=60)
+</code></pre>
+    <div class="callout">
+      <b>Warning:</b> Never hardcode your SSID in scripts. Use environment variables or config files.
+    </div>
+
+    <h2 id="api-reference">API Reference</h2>
+    <ul>
+      <li><b>PocketOptionAsync</b>: async trading API (connect, get_candles, buy, sell, check_win, get_payout, close)</li>
+      <li><b>Indicators</b>: SMA, RSI, and more (see <code>BinaryOptionsToolsAsync/indicators/</code>)</li>
+      <li><b>Platforms</b>: PocketOption integration (see <code>BinaryOptionsToolsAsync/platforms/</code>)</li>
+    </ul>
+    <p>See the <b>examples</b> below for real code in action.</p>
+
+    <h2 id="examples">Examples</h2>
+    <ul>
+      <li><b>async_minimal.py</b>: Minimal async usage (connect, get balance, fetch candles)</li>
+      <li><b>async_trading_example.py</b>: Advanced async trading with SMA strategy</li>
+      <li><b>sma-crossoverbot.py</b>: Synchronous SMA crossover bot</li>
+      <li><b>telegram_bot/</b>: Telegram bot integration</li>
+    </ul>
+    <div class="callout">
+      <b>See the <code>examples/</code> folder in your repo for all scripts.</b>
+    </div>
+
+    <h2 id="faq">FAQ</h2>
+    <b>How do I get my Pocket Option SSID?</b>
+    <ol>
+      <li>Open Pocket Option in your browser and log in.</li>
+      <li>Open Developer Tools (F12), go to the <b>Network</b> tab, filter by <b>WS</b> (WebSocket).</li>
+      <li>Refresh the page, find the WebSocket, and look for <code>auth</code> in the messages.</li>
+      <li>Copy the message containing your session key (SSID).</li>
+    </ol>
+    <b>Is it safe to use real money?</b>
+    <div class="callout">
+      <b>Always test with demo accounts first. Use strict risk management and never share your SSID.</b>
+    </div>
+  </div>
+  <footer>
+    &copy; 2025 BinaryOptionsToolsV1 | <a href="https://github.com/theshadow76/BinaryOptionsTools">GitHub</a>
+  </footer>
+</body>
+</html>
