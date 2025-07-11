@@ -15,6 +15,12 @@ Welcome to BinaryOptionsToolsV1's documentation!
    BinaryOptionsTools.platforms
    BinaryOptionsTools.research
    BinaryOptionsTools.indicators
+   BinaryOptionsToolsAsync
+   async_examples
+   async_guide
+   BinaryOptionsToolsAsync.indicators
+   BinaryOptionsToolsAsync.platforms
+   BinaryOptionsToolsAsync.bot
 
 API Reference
 =============

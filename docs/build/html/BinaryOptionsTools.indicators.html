@@ -50,17 +50,17 @@
 <li class="toctree-l1"><a class="reference internal" href="BinaryOptionsTools.research.html">BinaryOptionsTools.research package</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">BinaryOptionsTools.indicators package</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#submodules">Submodules</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#module-BinaryOptionsTools.indicators.momentum">BinaryOptionsTools.indicators.momentum module</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#BinaryOptionsTools.indicators.momentum.rsi"><code class="docutils literal notranslate"><span class="pre">rsi()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#binaryoptionstools-indicators-momentum-module">BinaryOptionsTools.indicators.momentum module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#binaryoptionstools-indicators-trend-module">BinaryOptionsTools.indicators.trend module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-contents">Module contents</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#module-BinaryOptionsTools.indicators.trend">BinaryOptionsTools.indicators.trend module</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#BinaryOptionsTools.indicators.trend.sma"><code class="docutils literal notranslate"><span class="pre">sma()</span></code></a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="#module-BinaryOptionsTools.indicators">Module contents</a></li>
-</ul>
-</li>
+<li class="toctree-l1"><a class="reference internal" href="BinaryOptionsToolsAsync.html">BinaryOptionsToolsAsync</a></li>
+<li class="toctree-l1"><a class="reference internal" href="async_examples.html">Async Usage &amp; Strategy Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="async_guide.html">Async API: Getting Started &amp; Best Practices</a></li>
+<li class="toctree-l1"><a class="reference internal" href="BinaryOptionsToolsAsync.indicators.html">BinaryOptionsToolsAsync.indicators</a></li>
+<li class="toctree-l1"><a class="reference internal" href="BinaryOptionsToolsAsync.platforms.html">BinaryOptionsToolsAsync.platforms</a></li>
+<li class="toctree-l1"><a class="reference internal" href="BinaryOptionsToolsAsync.bot.html">BinaryOptionsToolsAsync.bot</a></li>
 </ul>
 
         </div>
@@ -93,42 +93,14 @@
 <section id="submodules">
 <h2>Submodules<a class="headerlink" href="#submodules" title="Link to this heading"></a></h2>
 </section>
-<section id="module-BinaryOptionsTools.indicators.momentum">
-<span id="binaryoptionstools-indicators-momentum-module"></span><h2>BinaryOptionsTools.indicators.momentum module<a class="headerlink" href="#module-BinaryOptionsTools.indicators.momentum" title="Link to this heading"></a></h2>
-<dl class="py function">
-<dt class="sig sig-object py" id="BinaryOptionsTools.indicators.momentum.rsi">
-<span class="sig-prename descclassname"><span class="pre">BinaryOptionsTools.indicators.momentum.</span></span><span class="sig-name descname"><span class="pre">rsi</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">api</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timeframe</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">60</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ticker</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'EURUSD_otc'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rsi_period</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">14</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#BinaryOptionsTools.indicators.momentum.rsi" title="Link to this definition"></a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>timeframe</strong> (<em>int</em>)</p></li>
-<li><p><strong>ticker</strong> (<em>str</em>)</p></li>
-<li><p><strong>rsi_period</strong> (<em>int</em>)</p></li>
-</ul>
-</dd>
-</dl>
-</dd></dl>
-
+<section id="binaryoptionstools-indicators-momentum-module">
+<h2>BinaryOptionsTools.indicators.momentum module<a class="headerlink" href="#binaryoptionstools-indicators-momentum-module" title="Link to this heading"></a></h2>
 </section>
-<section id="module-BinaryOptionsTools.indicators.trend">
-<span id="binaryoptionstools-indicators-trend-module"></span><h2>BinaryOptionsTools.indicators.trend module<a class="headerlink" href="#module-BinaryOptionsTools.indicators.trend" title="Link to this heading"></a></h2>
-<dl class="py function">
-<dt class="sig sig-object py" id="BinaryOptionsTools.indicators.trend.sma">
-<span class="sig-prename descclassname"><span class="pre">BinaryOptionsTools.indicators.trend.</span></span><span class="sig-name descname"><span class="pre">sma</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">api</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timeframe</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">60</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ticker</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'EURUSD_otc'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sma_period</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">14</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#BinaryOptionsTools.indicators.trend.sma" title="Link to this definition"></a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>timeframe</strong> (<em>int</em>)</p></li>
-<li><p><strong>ticker</strong> (<em>str</em>)</p></li>
-<li><p><strong>sma_period</strong> (<em>int</em>)</p></li>
-</ul>
-</dd>
-</dl>
-</dd></dl>
-
+<section id="binaryoptionstools-indicators-trend-module">
+<h2>BinaryOptionsTools.indicators.trend module<a class="headerlink" href="#binaryoptionstools-indicators-trend-module" title="Link to this heading"></a></h2>
 </section>
-<section id="module-BinaryOptionsTools.indicators">
-<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-BinaryOptionsTools.indicators" title="Link to this heading"></a></h2>
+<section id="module-contents">
+<h2>Module contents<a class="headerlink" href="#module-contents" title="Link to this heading"></a></h2>
 </section>
 </section>
 

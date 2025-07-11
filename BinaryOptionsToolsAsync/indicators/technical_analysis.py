@@ -1,6 +1,10 @@
 """
-Comprehensive Technical Analysis Module
-Includes indicators, chart patterns, and price action detection
+BinaryOptionsToolsAsync.indicators.technical_analysis
+----------------------------------------------------
+
+Comprehensive async-compatible technical analysis module.
+Includes indicators, chart patterns, and price action detection.
+Supports both ta-lib and ta libraries.
 """
 
 import pandas as pd

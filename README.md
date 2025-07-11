@@ -130,3 +130,26 @@ Meet other traders, share ideas, and get updates about new features.
 </details>
 
 ---
+
+## Async API Usage (BinaryOptionsToolsAsync)
+
+You can use the async version for non-blocking trading bots and data collection. Here is a minimal example:
+
+```python
+import asyncio
+from BinaryOptionsToolsAsync.pocketoption import PocketOptionAsync
+
+async def main():
+    ssid = input("Enter your ssid: ")
+    api = PocketOptionAsync(ssid, demo=True)
+    balance = await api.balance()
+    print(f"[ASYNC] GET BALANCE: {balance}")
+    await api.close()
+
+if __name__ == "__main__":
+    asyncio.run(main())
+```
+
+See `examples/async_minimal.py` for a more complete example, including candle fetching.
+
+---

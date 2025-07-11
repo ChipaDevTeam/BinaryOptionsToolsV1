@@ -48,19 +48,25 @@
 <li class="toctree-l1 current"><a class="reference internal" href="BinaryOptionsTools.bot.html">BinaryOptionsTools.bot package</a><ul class="current">
 <li class="toctree-l2 current"><a class="reference internal" href="BinaryOptionsTools.bot.html#subpackages">Subpackages</a><ul class="current">
 <li class="toctree-l3 current"><a class="current reference internal" href="#">BinaryOptionsTools.bot.signals package</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#module-BinaryOptionsTools.bot.signals">Module contents</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-contents">Module contents</a></li>
 </ul>
 </li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="BinaryOptionsTools.bot.html#submodules">Submodules</a></li>
 <li class="toctree-l2"><a class="reference internal" href="BinaryOptionsTools.bot.html#binaryoptionstools-bot-base-module">BinaryOptionsTools.bot.base module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="BinaryOptionsTools.bot.html#module-BinaryOptionsTools.bot">Module contents</a></li>
+<li class="toctree-l2"><a class="reference internal" href="BinaryOptionsTools.bot.html#module-contents">Module contents</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="BinaryOptionsTools.platforms.html">BinaryOptionsTools.platforms package</a></li>
 <li class="toctree-l1"><a class="reference internal" href="BinaryOptionsTools.research.html">BinaryOptionsTools.research package</a></li>
 <li class="toctree-l1"><a class="reference internal" href="BinaryOptionsTools.indicators.html">BinaryOptionsTools.indicators package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="BinaryOptionsToolsAsync.html">BinaryOptionsToolsAsync</a></li>
+<li class="toctree-l1"><a class="reference internal" href="async_examples.html">Async Usage &amp; Strategy Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="async_guide.html">Async API: Getting Started &amp; Best Practices</a></li>
+<li class="toctree-l1"><a class="reference internal" href="BinaryOptionsToolsAsync.indicators.html">BinaryOptionsToolsAsync.indicators</a></li>
+<li class="toctree-l1"><a class="reference internal" href="BinaryOptionsToolsAsync.platforms.html">BinaryOptionsToolsAsync.platforms</a></li>
+<li class="toctree-l1"><a class="reference internal" href="BinaryOptionsToolsAsync.bot.html">BinaryOptionsToolsAsync.bot</a></li>
 </ul>
 
         </div>
@@ -91,44 +97,8 @@
              
   <section id="binaryoptionstools-bot-signals-package">
 <h1>BinaryOptionsTools.bot.signals package<a class="headerlink" href="#binaryoptionstools-bot-signals-package" title="Link to this heading"></a></h1>
-<section id="module-BinaryOptionsTools.bot.signals">
-<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-BinaryOptionsTools.bot.signals" title="Link to this heading"></a></h2>
-<dl class="py class">
-<dt class="sig sig-object py" id="BinaryOptionsTools.bot.signals.StreamSignals">
-<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">BinaryOptionsTools.bot.signals.</span></span><span class="sig-name descname"><span class="pre">StreamSignals</span></span><a class="headerlink" href="#BinaryOptionsTools.bot.signals.StreamSignals" title="Link to this definition"></a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
-<dl class="field-list simple">
-</dl>
-<dl class="py method">
-<dt class="sig sig-object py" id="BinaryOptionsTools.bot.signals.StreamSignals.sma">
-<span class="sig-name descname"><span class="pre">sma</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">period</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#BinaryOptionsTools.bot.signals.StreamSignals.sma" title="Link to this definition"></a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
-<dl class="py class">
-<dt class="sig sig-object py" id="BinaryOptionsTools.bot.signals.signals">
-<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">BinaryOptionsTools.bot.signals.</span></span><span class="sig-name descname"><span class="pre">signals</span></span><a class="headerlink" href="#BinaryOptionsTools.bot.signals.signals" title="Link to this definition"></a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
-<dl class="field-list simple">
-</dl>
-<dl class="py method">
-<dt class="sig sig-object py" id="BinaryOptionsTools.bot.signals.signals.sma_cross_over">
-<span class="sig-name descname"><span class="pre">sma_cross_over</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">api</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">FAST_SMA_PERIOD</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">9</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">SLOW_SMA_PERIOD</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">14</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timeframe</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">60</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ticker</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'EURUSD_otc'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#BinaryOptionsTools.bot.signals.signals.sma_cross_over" title="Link to this definition"></a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>FAST_SMA_PERIOD</strong> (<em>int</em>)</p></li>
-<li><p><strong>SLOW_SMA_PERIOD</strong> (<em>int</em>)</p></li>
-<li><p><strong>timeframe</strong> (<em>int</em>)</p></li>
-<li><p><strong>ticker</strong> (<em>str</em>)</p></li>
-</ul>
-</dd>
-</dl>
-</dd></dl>
-
-</dd></dl>
-
+<section id="module-contents">
+<h2>Module contents<a class="headerlink" href="#module-contents" title="Link to this heading"></a></h2>
 </section>
 </section>
 
