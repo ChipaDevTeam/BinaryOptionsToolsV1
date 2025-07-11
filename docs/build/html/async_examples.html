@@ -19,8 +19,8 @@
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Async API: Getting Started &amp; Best Practices" href="async_guide.html" />
-    <link rel="prev" title="BinaryOptionsToolsAsync" href="BinaryOptionsToolsAsync.html" /> 
+    <link rel="next" title="BinaryOptionsToolsAsync" href="BinaryOptionsToolsAsync.html" />
+    <link rel="prev" title="Async API: Getting Started &amp; Best Practices" href="async_guide.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -44,22 +44,17 @@
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="BinaryOptionsTools.html">BinaryOptionsTools package</a></li>
-<li class="toctree-l1"><a class="reference internal" href="BinaryOptionsTools.bot.html">BinaryOptionsTools.bot package</a></li>
-<li class="toctree-l1"><a class="reference internal" href="BinaryOptionsTools.platforms.html">BinaryOptionsTools.platforms package</a></li>
-<li class="toctree-l1"><a class="reference internal" href="BinaryOptionsTools.research.html">BinaryOptionsTools.research package</a></li>
-<li class="toctree-l1"><a class="reference internal" href="BinaryOptionsTools.indicators.html">BinaryOptionsTools.indicators package</a></li>
-<li class="toctree-l1"><a class="reference internal" href="BinaryOptionsToolsAsync.html">BinaryOptionsToolsAsync</a></li>
+<li class="toctree-l1"><a class="reference internal" href="async_guide.html">Async API: Getting Started &amp; Best Practices</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Async Usage &amp; Strategy Examples</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#minimal-async-example">Minimal Async Example</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#advanced-async-trading-example">Advanced Async Trading Example</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#tips">Tips</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="async_guide.html">Async API: Getting Started &amp; Best Practices</a></li>
+<li class="toctree-l1"><a class="reference internal" href="BinaryOptionsToolsAsync.html">BinaryOptionsToolsAsync</a></li>
 <li class="toctree-l1"><a class="reference internal" href="BinaryOptionsToolsAsync.indicators.html">BinaryOptionsToolsAsync.indicators</a></li>
 <li class="toctree-l1"><a class="reference internal" href="BinaryOptionsToolsAsync.platforms.html">BinaryOptionsToolsAsync.platforms</a></li>
 <li class="toctree-l1"><a class="reference internal" href="BinaryOptionsToolsAsync.bot.html">BinaryOptionsToolsAsync.bot</a></li>
+<li class="toctree-l1"><a class="reference internal" href="examples_index.html">Examples Index</a></li>
 </ul>
 
         </div>
@@ -88,7 +83,10 @@
              
   <section id="async-usage-strategy-examples">
 <h1>Async Usage &amp; Strategy Examples<a class="headerlink" href="#async-usage-strategy-examples" title="Link to this heading"></a></h1>
-<p>This page provides practical examples for using the async API (<cite>BinaryOptionsToolsAsync</cite>) in trading bots and data analysis.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>These examples show how to use the async API for trading bots and data analysis.</p>
+</div>
 <section id="minimal-async-example">
 <h2>Minimal Async Example<a class="headerlink" href="#minimal-async-example" title="Link to this heading"></a></h2>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">asyncio</span>
@@ -108,7 +106,6 @@
 </section>
 <section id="advanced-async-trading-example">
 <h2>Advanced Async Trading Example<a class="headerlink" href="#advanced-async-trading-example" title="Link to this heading"></a></h2>
-<p>This example fetches candles, calculates a simple moving average (SMA), and places a trade based on the indicator.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">asyncio</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">BinaryOptionsToolsAsync.pocketoption</span><span class="w"> </span><span class="kn">import</span> <span class="n">PocketOptionAsync</span>
@@ -129,14 +126,12 @@
     <span class="n">asyncio</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">main</span><span class="p">())</span>
 </pre></div>
 </div>
-</section>
-<section id="tips">
-<h2>Tips<a class="headerlink" href="#tips" title="Link to this heading"></a></h2>
-<ul class="simple">
-<li><p>Always close the API connection with <cite>await api.close()</cite>.</p></li>
-<li><p>Use <cite>asyncio.sleep()</cite> to wait for trade expiration.</p></li>
-<li><p>Use pandas or numpy for indicator calculations.</p></li>
-</ul>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>Always close the API connection with <cite>await api.close()</cite>.
+Use <cite>asyncio.sleep()</cite> to wait for trade expiration.
+Use pandas or numpy for indicator calculations.</p>
+</div>
 <p>See also: <a class="reference internal" href="BinaryOptionsToolsAsync.html"><span class="doc">BinaryOptionsToolsAsync</span></a> for full async API reference.</p>
 </section>
 </section>
@@ -145,8 +140,8 @@
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="BinaryOptionsToolsAsync.html" class="btn btn-neutral float-left" title="BinaryOptionsToolsAsync" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="async_guide.html" class="btn btn-neutral float-right" title="Async API: Getting Started &amp; Best Practices" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="async_guide.html" class="btn btn-neutral float-left" title="Async API: Getting Started &amp; Best Practices" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="BinaryOptionsToolsAsync.html" class="btn btn-neutral float-right" title="BinaryOptionsToolsAsync" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

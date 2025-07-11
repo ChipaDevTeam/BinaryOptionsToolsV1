@@ -1,11 +1,8 @@
 Async API: Getting Started & Best Practices
-==========================================
+============================================
 
-This guide covers:
-- How to set up and use the async API
-- Best practices for async trading bots
-- Troubleshooting common issues
-- Security and real trading tips
+.. note::
+   This guide covers how to set up and use the async API, best practices, troubleshooting, and security tips.
 
 Getting Started
 ---------------
@@ -31,9 +28,11 @@ Getting Started
 4. **Close the connection**
    - Always call `await api.close()` when done.
 
+.. important::
+   Always use `asyncio.sleep()` for timing, not `time.sleep()`.
+
 Best Practices
 --------------
-- Use `asyncio.sleep()` for timing, not `time.sleep()`.
 - Handle exceptions with try/except to avoid crashes.
 - Never hardcode your SSID or credentials in scripts.
 - Test with demo accounts before real trading.
@@ -45,10 +44,11 @@ Troubleshooting
 - **API changes**: Update the package if PocketOption changes their API.
 - **Rate limits**: Avoid rapid repeated requests; use delays.
 
+.. warning::
+   Keep your SSID secret. Use environment variables or config files for sensitive data.
+
 Security & Real Trading
 -----------------------
-- Keep your SSID secret.
-- Use environment variables or config files for sensitive data.
 - Monitor your bot and set limits to avoid large losses.
 
 See also: :doc:`async_examples` and :doc:`BinaryOptionsToolsAsync` for more details.

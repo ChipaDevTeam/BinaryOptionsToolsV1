@@ -1,7 +1,8 @@
 Async Usage & Strategy Examples
-==============================
+===============================
 
-This page provides practical examples for using the async API (`BinaryOptionsToolsAsync`) in trading bots and data analysis.
+.. note::
+   These examples show how to use the async API for trading bots and data analysis.
 
 Minimal Async Example
 ---------------------
@@ -21,11 +22,8 @@ Minimal Async Example
     if __name__ == "__main__":
         asyncio.run(main())
 
-
 Advanced Async Trading Example
 -----------------------------
-
-This example fetches candles, calculates a simple moving average (SMA), and places a trade based on the indicator.
 
 .. code-block:: python
 
@@ -48,11 +46,9 @@ This example fetches candles, calculates a simple moving average (SMA), and plac
     if __name__ == "__main__":
         asyncio.run(main())
 
-
-Tips
-----
-- Always close the API connection with `await api.close()`.
-- Use `asyncio.sleep()` to wait for trade expiration.
-- Use pandas or numpy for indicator calculations.
+.. important::
+   Always close the API connection with `await api.close()`.
+   Use `asyncio.sleep()` to wait for trade expiration.
+   Use pandas or numpy for indicator calculations.
 
 See also: :doc:`BinaryOptionsToolsAsync` for full async API reference.

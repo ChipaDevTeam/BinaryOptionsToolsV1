@@ -3,30 +3,30 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-Welcome to BinaryOptionsToolsV1's documentation!
-=====================================
+BinaryOptionsToolsV1 Documentation
+=================================
+
+Welcome to the BinaryOptionsToolsV1 documentation!
+
+- 🚀 **[Getting Started](async_guide.html)**
+- ⚡ **[Async Usage & Strategies](async_examples.html)**
+- 🧩 **[API Reference](BinaryOptionsToolsAsync.html)**
+- 🛠️ **[All Examples](examples_index.html)**
+- ❓ **[FAQ](README.html)**
 
 .. toctree::
    :maxdepth: 2
    :caption: Contents:
 
-   BinaryOptionsTools
-   BinaryOptionsTools.bot
-   BinaryOptionsTools.platforms
-   BinaryOptionsTools.research
-   BinaryOptionsTools.indicators
-   BinaryOptionsToolsAsync
-   async_examples
    async_guide
+   async_examples
+   BinaryOptionsToolsAsync
    BinaryOptionsToolsAsync.indicators
    BinaryOptionsToolsAsync.platforms
    BinaryOptionsToolsAsync.bot
+   examples_index
 
-API Reference
-=============
+---
 
-.. automodule:: BinaryOptionsToolsV1
-   :members:
-   :undoc-members:
-   :show-inheritance:
+For more, see the README or join our community on Discord!
 
