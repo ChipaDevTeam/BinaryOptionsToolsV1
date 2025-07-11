@@ -113,7 +113,7 @@ Meet other traders, share ideas, and get updates about new features.
   Follow these steps to get your auth key from Pocket Option:
 
   1. **Go to Pocket Option Website**
-      Open [Pocket Option](https://pocketoption.com/en/cabinet/) in your browser.
+      Open [Pocket Option](https://u3.shortink.io/smart/SDIaxbeamcYYqB) in your browser.
 
   2. **Open Developer Tools**
       Press `CTRL + Shift + I` to open Developer Tools. Then, go to the **Network** tab.
