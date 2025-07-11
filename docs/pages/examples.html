@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Examples - BinaryOptionsToolsV1</title>
+  <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+  <div class="header">
+    <h1>Examples</h1>
+    <p>Ready-to-use scripts and code snippets for BinaryOptionsToolsAsync and BinaryOptionsTools.</p>
+  </div>
+  <div class="container">
+    <h2>Minimal Async Example</h2>
+    <pre><code>import asyncio
+from BinaryOptionsToolsAsync.pocketoption import PocketOptionAsync
+
+async def main():
+    api = PocketOptionAsync(ssid, demo=True)
+    balance = await api.balance()
+    print(balance)
+    await api.close()
+
+asyncio.run(main())
+</code></pre>
+    <h2>Advanced Async Trading Example</h2>
+    <pre><code>import pandas as pd
+candles = await api.get_candles("EURUSD_otc", period=60, duration=1200)
+df = pd.DataFrame(candles)
+df['SMA_5'] = df['close'].rolling(window=5).mean()
+if df['close'].iloc[-1] > df['SMA_5'].iloc[-1]:
+    trade_id, success = await api.buy("EURUSD_otc", amount=1, time=60)
+else:
+    trade_id, success = await api.sell("EURUSD_otc", amount=1, time=60)
+</code></pre>
+    <h2>SMA Crossover Bot</h2>
+    <pre><code># See examples/sma-crossoverbot.py for a full implementation
+</code></pre>
+    <h2>Telegram Bot Integration</h2>
+    <pre><code># See examples/telegram_bot/telegram-bot.py for a full implementation
+</code></pre>
+  </div>
+</body>
+</html>

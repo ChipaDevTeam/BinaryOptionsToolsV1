@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Bots - BinaryOptionsToolsV1</title>
+  <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+  <div class="header">
+    <h1>Trading Bots</h1>
+    <p>How to build and run trading bots using BinaryOptionsToolsAsync and BinaryOptionsTools.</p>
+  </div>
+  <div class="container">
+    <h2>Minimal Async Bot</h2>
+    <pre><code>import asyncio
+from BinaryOptionsToolsAsync.pocketoption import PocketOptionAsync
+
+async def main():
+    api = PocketOptionAsync(ssid, demo=True)
+    # Add your bot logic here
+    await api.close()
+
+asyncio.run(main())
+</code></pre>
+    <h2>SMA Crossover Bot Example</h2>
+    <pre><code>import pandas as pd
+from BinaryOptionsTools.indicators.momentum import sma
+# ...
+# See examples/sma-crossoverbot.py for full code
+</code></pre>
+  </div>
+</body>
+</html>

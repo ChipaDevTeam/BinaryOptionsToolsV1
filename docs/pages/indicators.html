@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Indicators - BinaryOptionsToolsV1</title>
+  <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+  <div class="header">
+    <h1>Indicators</h1>
+    <p>Technical indicators available in BinaryOptionsToolsAsync and BinaryOptionsTools</p>
+  </div>
+  <div class="container">
+    <h2>Momentum Indicators</h2>
+    <ul>
+      <li><b>SMA</b> - Simple Moving Average</li>
+      <li><b>RSI</b> - Relative Strength Index</li>
+      <li><b>EMA</b> - Exponential Moving Average</li>
+      <li><b>MACD</b> - Moving Average Convergence Divergence</li>
+    </ul>
+    <h2>Example: Calculate SMA</h2>
+    <pre><code>import pandas as pd
+from BinaryOptionsToolsAsync.indicators.momentum import sma
+
+df = pd.DataFrame({'close': [1,2,3,4,5,6,7,8,9,10]})
+df['SMA_3'] = sma(df['close'], window=3)
+print(df)
+</code></pre>
+    <h2>Example: Calculate RSI</h2>
+    <pre><code>from BinaryOptionsToolsAsync.indicators.momentum import rsi
+rsi_value = rsi(df['close'], window=14)
+print(rsi_value)
+</code></pre>
+  </div>
+</body>
+</html>

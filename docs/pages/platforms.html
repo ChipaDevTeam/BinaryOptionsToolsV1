@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Platforms - BinaryOptionsToolsV1</title>
+  <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+  <div class="header">
+    <h1>Supported Platforms</h1>
+    <p>Overview of supported trading platforms and integration details.</p>
+  </div>
+  <div class="container">
+    <h2>PocketOption</h2>
+    <ul>
+      <li>Async API: <code>PocketOptionAsync</code></li>
+      <li>Sync API: <code>PocketOption</code></li>
+      <li>Features: connect, get_candles, buy, sell, check_win, get_payout, close</li>
+    </ul>
+    <h2>Example: Connect and Get Balance</h2>
+    <pre><code>from BinaryOptionsToolsAsync.pocketoption import PocketOptionAsync
+import asyncio
+
+async def main():
+    api = PocketOptionAsync(ssid, demo=True)
+    balance = await api.balance()
+    print(balance)
+    await api.close()
+
+asyncio.run(main())
+</code></pre>
+  </div>
+</body>
+</html>
