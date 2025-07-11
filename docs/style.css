@@ -1,16 +1,16 @@
 body {
   font-family: 'Segoe UI', Arial, sans-serif;
-  background: linear-gradient(120deg, #f7f8fa 60%, #e9ecf3 100%);
-  color: #23272f;
+  background: linear-gradient(120deg, #f6f3fa 60%, #e6e0f7 100%);
+  color: #2a223a;
   margin: 0;
   padding: 0;
 }
 .header {
-  background: linear-gradient(90deg, #23272f 80%, #ff570a 120%);
+  background: linear-gradient(90deg, #5f2c82 80%, #49a09d 120%);
   color: #fff;
   padding: 2.5rem 0 1.2rem 0;
   text-align: center;
-  box-shadow: 0 2px 12px rgba(0,0,0,0.07);
+  box-shadow: 0 2px 12px rgba(95,44,130,0.07);
   border-bottom-left-radius: 18px;
   border-bottom-right-radius: 18px;
 }
@@ -27,18 +27,18 @@ body {
 }
 nav {
   background: #fff;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+  box-shadow: 0 2px 8px rgba(95,44,130,0.03);
   display: flex;
   justify-content: center;
   gap: 2.5rem;
   padding: 1.1rem 0;
-  border-bottom: 1px solid #f3f3f6;
+  border-bottom: 1px solid #e6e0f7;
   position: sticky;
   top: 0;
   z-index: 10;
 }
 nav a {
-  color: #23272f;
+  color: #5f2c82;
   text-decoration: none;
   font-weight: 600;
   font-size: 1.13rem;
@@ -47,27 +47,27 @@ nav a {
   border-bottom: 2px solid transparent;
 }
 nav a:hover, nav a.active {
-  color: #ff570a;
-  border-bottom: 2px solid #ff570a;
+  color: #a259c6;
+  border-bottom: 2px solid #a259c6;
 }
 .container {
   max-width: 950px;
   margin: 2.5rem auto;
   background: #fff;
   border-radius: 14px;
-  box-shadow: 0 2px 18px rgba(0,0,0,0.08);
+  box-shadow: 0 2px 18px rgba(95,44,130,0.08);
   padding: 2.2rem 2.7rem;
 }
 h2 {
-  color: #ff570a;
+  color: #a259c6;
   margin-top: 2.2rem;
   font-size: 1.6rem;
-  border-bottom: 1px solid #f3f3f6;
+  border-bottom: 1px solid #e6e0f7;
   padding-bottom: 0.3rem;
 }
 pre, code {
-  background: #181c23;
-  color: #f7f8fa;
+  background: #2a223a;
+  color: #f6f3fa;
   border-radius: 7px;
   padding: 0.7rem 1.2rem;
   font-size: 1.04rem;
@@ -77,34 +77,34 @@ pre, code {
 }
 pre {
   margin: 1.2rem 0;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+  box-shadow: 0 2px 8px rgba(95,44,130,0.04);
 }
 code {
   padding: 0.2em 0.4em;
   font-size: 1em;
 }
 .callout {
-  background: #fff7e6;
-  border-left: 5px solid #ff570a;
+  background: #f3eaff;
+  border-left: 5px solid #a259c6;
   padding: 1.1rem 1.7rem;
   margin: 1.7rem 0;
   border-radius: 7px;
-  color: #7a4d00;
+  color: #5f2c82;
   font-size: 1.08rem;
-  box-shadow: 0 1px 4px rgba(255,87,10,0.04);
+  box-shadow: 0 1px 4px rgba(162,89,198,0.04);
 }
 .callout.info {
-  background: #e6f4ff;
-  border-left: 5px solid #2196f3;
-  color: #0d3c61;
+  background: #e6e0f7;
+  border-left: 5px solid #49a09d;
+  color: #2a223a;
 }
 .callout.warning {
-  background: #fff3e6;
+  background: #fbefff;
   border-left: 5px solid #ff9800;
   color: #7a4d00;
 }
 .callout.success {
-  background: #e6ffed;
+  background: #e6ffe6;
   border-left: 5px solid #4caf50;
   color: #1b5e20;
 }
@@ -115,7 +115,7 @@ footer {
   margin: 3.5rem 0 1.2rem 0;
 }
 button, .btn {
-  background: #ff570a;
+  background: #a259c6;
   color: #fff;
   border: none;
   border-radius: 5px;
@@ -124,14 +124,14 @@ button, .btn {
   font-weight: 600;
   cursor: pointer;
   transition: background 0.2s, box-shadow 0.2s;
-  box-shadow: 0 1px 4px rgba(255,87,10,0.08);
+  box-shadow: 0 1px 4px rgba(162,89,198,0.08);
 }
 button:hover, .btn:hover {
-  background: #d94a07;
+  background: #5f2c82;
 }
 hr {
   border: none;
-  border-top: 1px solid #e0e6ed;
+  border-top: 1px solid #e6e0f7;
   margin: 2.5rem 0;
 }
 @media (max-width: 600px) {
