@@ -46,6 +46,24 @@ class pocketoption:
     def GetCandles(self, active, period, start_time=None, count=6000, count_request=1):
         data = self.api.get_candles(active, period, start_time, count, count_request)
         return data
+    
+    def GetCandlesMultipleAssets(self, assets, period=60, start_time=None, count=6000, count_request=1, max_workers=None):
+        """
+        Fetch candles for multiple assets in parallel using multiprocessing.
+        
+        Args:
+            assets: List of asset symbols (e.g., ["EURUSD_otc", "GBPUSD_otc", "USDJPY_otc"])
+            period: The time interval of each candle in seconds (default: 60)
+            start_time: The end time for the last candle (default: None for current time)
+            count: Number of seconds to fetch per request (default: 6000)
+            count_request: Number of requests for historical data (default: 1)
+            max_workers: Maximum number of parallel workers (default: None)
+        
+        Returns:
+            Dictionary with asset symbols as keys and their candle data as values
+        """
+        return self.api.get_candles_multiple_assets(assets, period, start_time, count, count_request, max_workers)
+    
     def CheckWin(self, id):
         data = self.api.check_win(id)
         return data

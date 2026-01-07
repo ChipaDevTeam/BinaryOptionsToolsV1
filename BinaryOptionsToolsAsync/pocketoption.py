@@ -186,6 +186,38 @@ class PocketOptionAsync:
             self._executor, _get_payout
         )
     
+    async def get_candles_multiple_assets(
+        self, 
+        assets: list, 
+        period: int = 60, 
+        duration: int = 600,
+        max_workers: int = None
+    ):
+        """Get historical candles for multiple assets in parallel using multiprocessing
+        
+        Args:
+            assets: List of trading assets (e.g., ["EURUSD_otc", "GBPUSD_otc"])
+            period: Timeframe in seconds
+            duration: Duration in seconds to fetch history
+            max_workers: Maximum number of parallel workers (default: None)
+            
+        Returns:
+            Dictionary with asset symbols as keys and their candle data as values
+        """
+        await self._ensure_connected()
+        
+        # Calculate count based on duration and period
+        count = max(10, duration // period)
+        
+        def _get_multiple():
+            return self._api.get_candles_multiple_assets(
+                assets, period, None, count, 1, max_workers
+            )
+        
+        return await asyncio.get_event_loop().run_in_executor(
+            self._executor, _get_multiple
+        )
+    
     async def close(self):
         """Close the API connection"""
         if self._executor:
