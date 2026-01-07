@@ -14,6 +14,8 @@ import BinaryOptionsToolsAsync.platforms.pocketoption.global_value as global_val
 from collections import defaultdict
 # from pocketoptionapi.expiration import get_expiration_time, get_remaning_time
 import pandas as pd
+from multiprocessing import Pool, cpu_count
+from typing import List, Dict, Tuple, Any
 
 # Obtener la zona horaria local del sistema como una cadena en el formato IANA
 local_zone_name = get_localzone()
@@ -29,6 +31,50 @@ def nested_dict(n, type):
 def get_balance():
     # balances_raw = self.get_balances()
     return global_value.balance
+
+
+def _fetch_candles_worker_async(args: Tuple) -> Dict[str, Any]:
+    """
+    Worker function for multiprocessing to fetch candles for a single asset (async version).
+    This function is defined at module level to be picklable for multiprocessing.
+    
+    Args:
+        args: Tuple containing (ssid, demo, asset, period, start_time, count, count_request)
+    
+    Returns:
+        Dictionary with asset name and its candle data or error information
+    """
+    ssid, demo, asset, period, start_time, count, count_request = args
+    
+    try:
+        # Create a new API instance for this process
+        from BinaryOptionsToolsAsync.platforms.pocketoption.stable_api import PocketOption
+        api = PocketOption(ssid, demo)
+        api.connect()
+        time.sleep(2)  # Brief wait for connection
+        
+        # Fetch candles
+        candles = api.get_candles(asset, period, start_time, count, count_request)
+        
+        # Clean up
+        try:
+            api.disconnect()
+        except:
+            pass
+        
+        return {
+            'asset': asset,
+            'success': True,
+            'data': candles,
+            'error': None
+        }
+    except Exception as e:
+        return {
+            'asset': asset,
+            'success': False,
+            'data': None,
+            'error': str(e)
+        }
 
 
 class PocketOption:
@@ -778,3 +824,84 @@ class PocketOption:
             return {"error": "Technical analysis module not available"}
         except Exception as e:
             return {"error": f"Support/Resistance calculation failed: {str(e)}"}
+    
+    def get_candles_multiple_assets(
+        self, 
+        assets: List[str], 
+        period: int = 60, 
+        start_time: int = None, 
+        count: int = 6000, 
+        count_request: int = 1,
+        max_workers: int = None
+    ) -> Dict[str, Any]:
+        """
+        Fetch candles for multiple assets in parallel using multiprocessing.
+        
+        Args:
+            assets: List of asset symbols (e.g., ["EURUSD_otc", "GBPUSD_otc", "USDJPY_otc"])
+            period: The time interval of each candle in seconds (default: 60)
+            start_time: The end time for the last candle (default: None for current time)
+            count: Number of seconds to fetch per request, max: 9000 (default: 6000)
+            count_request: Number of requests for historical data (default: 1)
+            max_workers: Maximum number of parallel workers (default: None, uses CPU count)
+        
+        Returns:
+            Dictionary with asset symbols as keys and their candle data as values.
+            Each value contains:
+                - 'success': Boolean indicating if fetch was successful
+                - 'data': DataFrame with candle data (if successful)
+                - 'error': Error message (if failed)
+        
+        Example:
+            >>> assets = ["EURUSD_otc", "GBPUSD_otc", "USDJPY_otc"]
+            >>> results = api.get_candles_multiple_assets(assets, period=60, count=3600)
+            >>> for asset, result in results.items():
+            ...     if result['success']:
+            ...         print(f"{asset}: {len(result['data'])} candles")
+            ...     else:
+            ...         print(f"{asset}: Error - {result['error']}")
+        """
+        if not assets:
+            return {}
+        
+        if max_workers is None:
+            max_workers = min(cpu_count(), len(assets))
+        
+        # Prepare arguments for each worker
+        worker_args = [
+            (global_value.SSID, global_value.DEMO, asset, period, start_time, count, count_request)
+            for asset in assets
+        ]
+        
+        results = {}
+        
+        try:
+            # Use multiprocessing Pool to fetch candles in parallel
+            with Pool(processes=max_workers) as pool:
+                worker_results = pool.map(_fetch_candles_worker_async, worker_args)
+            
+            # Organize results by asset
+            for result in worker_results:
+                asset = result['asset']
+                results[asset] = {
+                    'success': result['success'],
+                    'data': result['data'],
+                    'error': result['error']
+                }
+                
+                if result['success']:
+                    self.logger.info(f"Successfully fetched candles for {asset}")
+                else:
+                    self.logger.warning(f"Failed to fetch candles for {asset}: {result['error']}")
+        
+        except Exception as e:
+            self.logger.error(f"Multiprocessing error: {e}")
+            # Return error for all assets
+            for asset in assets:
+                results[asset] = {
+                    'success': False,
+                    'data': None,
+                    'error': f"Multiprocessing error: {str(e)}"
+                }
+        
+        return results
