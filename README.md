@@ -2,6 +2,10 @@
 
 ![CodeRabbit Pull Request Reviews](https://img.shields.io/coderabbit/prs/github/ChipaDevTeam/BinaryOptionsToolsV1?utm_source=oss&utm_medium=github&utm_campaign=ChipaDevTeam%2FBinaryOptionsToolsV1&labelColor=171717&color=FF570A&link=https%3A%2F%2Fcoderabbit.ai&label=CodeRabbit+Reviews)
 
+> **✨ Build with [ChipaEditor](https://chipaeditor.com/?utm_source=github&utm_medium=readme&utm_campaign=BinaryOptionsToolsV1&utm_content=header) — AI-powered algorithmic _trading strategy_ builder. Describe it, backtest it, deploy it. [Try it free!](https://chipaeditor.com/?utm_source=github&utm_medium=readme&utm_campaign=BinaryOptionsToolsV1&utm_content=header_cta)**
+>
+> **📈 Trading crypto too? [Trade BTC perps, spot & margin on ChipaX](https://exchange.chipatrade.com/trade/BTC?ref=Z1RN8GBS) — demo mode available.**
+
 **BinaryOptionsTools** is a set of tools designed to make binary options trading easier. It helps with market analysis, strategy creation, and automatic trading. Use these tools to make smarter trading decisions.
 
 👉 [Join us on Discord](https://discord.gg/H8er9mbF4V)
